@@ -6,8 +6,8 @@ export const MainContainer = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 200px;
-  height: auto;
+  width: 150px;
+  height: 100%;
   margin-left: 15px;
   margin-right: 15px;
 `;
