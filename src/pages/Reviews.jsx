@@ -1,27 +1,31 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Loader } from '../components/Loader/Loader';
 import { fetchMovieReviews } from 'fetchMovies';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { movieId } = useParams();
 
   useEffect(() => {
     const controller = new AbortController();
     const fetchReviews = async () => {
+      setIsLoading(true);
       try {
         const response = await fetchMovieReviews(movieId);
         setReviews(response.results);
       } catch (error) {
         setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchReviews();
-
     return () => {
       controller.abort();
     };
@@ -30,6 +34,7 @@ export const Reviews = () => {
   return (
     <>
       <h2>Reviews</h2>
+      {isLoading && <Loader />}
       {error &&
         toast.error(`Sorry, but something happened wrong: ${error.message}`, {
           theme: 'colored',
@@ -56,3 +61,5 @@ export const Reviews = () => {
     </>
   );
 };
+
+export default Reviews;

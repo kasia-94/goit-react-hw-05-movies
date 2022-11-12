@@ -1,22 +1,30 @@
 import { useEffect, useState } from 'react';
-import { useParams, Outlet, Link } from 'react-router-dom';
+import { useParams, Outlet, Link, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from 'fetchMovies';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BackLink } from 'components/BackLink/BackLink';
+import { Loader } from '../components/Loader/Loader';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/movie';
 
   useEffect(() => {
     const controller = new AbortController();
     const fetchMovie = async () => {
       try {
+        setIsLoading(true);
         const response = await fetchMovieDetails(movieId);
         setMovie(response);
       } catch (error) {
         setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -33,6 +41,7 @@ export const MovieDetails = () => {
 
   return (
     <>
+      <BackLink to={backLinkHref} />
       {error &&
         toast.error(`Sorry, but something happened wrong: ${error.message}`, {
           theme: 'colored',
@@ -71,7 +80,10 @@ export const MovieDetails = () => {
           </div>
         </div>
       )}
+      {isLoading && <Loader />}
       <Outlet />
     </>
   );
 };
+
+export default MovieDetails;

@@ -2,14 +2,16 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SearchBar } from 'components/SearchBar/SearchBar';
 import { MovieGallery } from 'components/MovieGallery';
+import { Loader } from 'components/Loader/Loader';
 import { fetchSearchMovie } from 'fetchMovies';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const Movies = () => {
+const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const movieName = searchParams.get('name') ?? '';
 
   const onSubmit = value => {
@@ -18,11 +20,14 @@ export const Movies = () => {
 
   useEffect(() => {
     const searchFilm = async movieName => {
+      setIsLoading(true);
       try {
         const response = await fetchSearchMovie(movieName);
         setMovies(response.results);
       } catch (error) {
         setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -39,6 +44,9 @@ export const Movies = () => {
         })}
       <SearchBar onSubmit={onSubmit} />
       <MovieGallery movies={movies} />
+      {isLoading && <Loader />}
     </>
   );
 };
+
+export default Movies;
