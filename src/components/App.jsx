@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-import { Navigation } from './Navigation';
+import { Navigation } from './Navigation/Navigation';
 import { Loader } from './Loader/Loader';
 
 export function App() {
-  const Home = lazy(() => import('../pages/Home'));
+  const Home = lazy(() => import('../pages/Home/Home'));
   const Movies = lazy(() => import('../pages/Movies/Movies'));
-  const MovieDetails = lazy(() => import('../pages/MovieDetails'));
-  const Cast = lazy(() => import('../pages/Cast'));
+  const MovieDetails = lazy(() => import('../pages/MovieDetails/MovieDetails'));
+  const Cast = lazy(() => import('../pages/Cast/Cast'));
   const Reviews = lazy(() => import('../pages/Reviews'));
 
   return (

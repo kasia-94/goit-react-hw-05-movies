@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { MovieItem, MovieList } from './MovieGallery.styled';
 
 export const MovieGallery = ({ movies }) => {
   const renderGallery = () =>
     movies.map(({ id, title }) => (
       <li key={id}>
-        <Link to={`/movies/${id}`}>{title}</Link>
+        <MovieItem to={`/movies/${id}`}>{title}</MovieItem>
       </li>
     ));
 
-  return <ul>{movies ? renderGallery() : null}</ul>;
+  return <MovieList>{movies ? renderGallery() : null}</MovieList>;
 };
 
 MovieGallery.propTypes = {

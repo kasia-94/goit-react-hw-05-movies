@@ -4,6 +4,7 @@ import { Loader } from 'components/Loader/Loader';
 import { fetchMovieCredits } from 'fetchMovies';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CastList, Image } from './Cast.styled';
 
 const Cast = () => {
   const [actors, setActors] = useState(null);
@@ -41,17 +42,17 @@ const Cast = () => {
       {!actors && 'No actors'}
 
       {actors && (
-        <ul>
+        <CastList>
           {actors.map(({ id, name, profile_path, character }) => {
             return (
               <li key={id}>
                 {profile_path ? (
-                  <img
+                  <Image
                     src={`https://image.tmdb.org/t/p/w500${profile_path}`}
                     alt={name}
                   />
                 ) : (
-                  <img
+                  <Image
                     src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
                     alt={name}
                   />
@@ -61,7 +62,7 @@ const Cast = () => {
               </li>
             );
           })}
-        </ul>
+        </CastList>
       )}
       {isLoading && <Loader />}
     </>

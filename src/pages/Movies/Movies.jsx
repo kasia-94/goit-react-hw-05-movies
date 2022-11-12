@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SearchBar } from 'components/SearchBar/SearchBar';
-import { MovieGallery } from 'components/MovieGallery';
+import { MovieGallery } from 'components/MovieGallery/MovieGallery';
 import { Loader } from 'components/Loader/Loader';
 import { fetchSearchMovie } from 'fetchMovies';
 import { toast } from 'react-toastify';

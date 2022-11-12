@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { fetchTrending } from 'fetchMovies';
-import { MovieGallery } from '../components/MovieGallery';
+import { MovieGallery } from '../../components/MovieGallery/MovieGallery';
 import { Loader } from 'components/Loader/Loader';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { MainTitle } from './Home.styled';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -36,7 +37,7 @@ const Home = () => {
         toast.error(`Sorry, but something happened wrong: ${error.message}`, {
           theme: 'colored',
         })}
-      <h1>Trending today</h1>
+      <MainTitle>Trending today</MainTitle>
       {<MovieGallery movies={movies} />}
       {isLoading && <Loader />}
     </>
