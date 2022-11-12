@@ -7,10 +7,6 @@ export const CastList = styled.ul`
   list-style: none;
 `;
 
-// export const CastItem = styled.ul`
-
-// `;
-
 export const Image = styled.img`
   width: 150px;
   height: auto;
