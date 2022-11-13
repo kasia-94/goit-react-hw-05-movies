@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 export const MainContainer = styled.div`
   display: flex;
@@ -29,5 +29,21 @@ export const AdditionLink = styled(NavLink)`
   }
   &.active {
     color: #14299b;
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: 250ms color ease;
+
+  :hover {
+    color: #3f51b5;
   }
 `;

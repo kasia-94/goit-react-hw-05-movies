@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { fetchTrending } from 'fetchMovies';
 import { MovieGallery } from '../../components/MovieGallery/MovieGallery';
 import { Loader } from 'components/Loader/Loader';
@@ -10,6 +11,7 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -38,7 +40,13 @@ const Home = () => {
           theme: 'colored',
         })}
       <MainTitle>Trending today</MainTitle>
-      {<MovieGallery movies={movies} />}
+      {
+        <MovieGallery
+          movies={movies}
+          to={`/movies/${movies.id}`}
+          state={{ from: location.pathname }}
+        />
+      }
       {isLoading && <Loader />}
     </>
   );

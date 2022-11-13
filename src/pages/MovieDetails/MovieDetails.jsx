@@ -3,22 +3,30 @@ import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from 'fetchMovies';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BackLink } from 'components/BackLink/BackLink';
 import { Loader } from '../../components/Loader/Loader';
 import {
   MainContainer,
   Image,
   Addition,
   AdditionLink,
+  StyledLink,
 } from './MovieDetails.styled';
+import { HiArrowLeft } from 'react-icons/hi';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [backLink, setBackLink] = useState('');
   const { movieId } = useParams();
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/movie';
+
+  useEffect(() => {
+    if (backLink !== '') {
+      return;
+    }
+    setBackLink(location.state?.from ?? '/Home');
+  }, [backLink, location]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -47,7 +55,10 @@ const MovieDetails = () => {
 
   return (
     <>
-      <BackLink to={backLinkHref} />
+      <StyledLink to={backLink}>
+        <HiArrowLeft size="24" />
+        <span>Go back</span>
+      </StyledLink>
       {error &&
         toast.error(`Sorry, but something happened wrong: ${error.message}`, {
           theme: 'colored',
@@ -81,10 +92,14 @@ const MovieDetails = () => {
             <h2>Additional information</h2>
             <Addition>
               <li>
-                <AdditionLink to="cast">Cast</AdditionLink>
+                <AdditionLink to="cast" state={{ id: movieId }}>
+                  Cast
+                </AdditionLink>
               </li>
               <li>
-                <AdditionLink to="reviews">Reviews</AdditionLink>
+                <AdditionLink to="reviews" state={{ id: movieId }}>
+                  Reviews
+                </AdditionLink>
               </li>
             </Addition>
           </div>

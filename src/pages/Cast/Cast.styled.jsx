@@ -12,3 +12,11 @@ export const Image = styled.img`
   height: auto;
   margin-right: 15px;
 `;
+
+export const CastContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+`;

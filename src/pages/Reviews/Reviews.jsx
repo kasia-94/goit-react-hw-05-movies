@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Loader } from '../components/Loader/Loader';
+import { Loader } from '../../components/Loader/Loader';
 import { fetchMovieReviews } from 'fetchMovies';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Addition, AuthorName } from './Reviews.styled';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState(null);
@@ -41,13 +42,13 @@ const Reviews = () => {
         })}
 
       {reviews && (
-        <ul>
+        <Addition>
           {reviews.map(({ id, author, content }) => {
             return (
               <li key={id}>
                 {author ? (
                   <>
-                    <p>Author: {author}</p>
+                    <AuthorName>Author: {author}</AuthorName>
                     <p>{content}</p>
                   </>
                 ) : (
@@ -56,7 +57,7 @@ const Reviews = () => {
               </li>
             );
           })}
-        </ul>
+        </Addition>
       )}
     </>
   );

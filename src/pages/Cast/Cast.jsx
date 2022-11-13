@@ -4,7 +4,7 @@ import { Loader } from 'components/Loader/Loader';
 import { fetchMovieCredits } from 'fetchMovies';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { CastList, Image } from './Cast.styled';
+import { CastList, Image, CastContainer } from './Cast.styled';
 
 const Cast = () => {
   const [actors, setActors] = useState(null);
@@ -45,7 +45,7 @@ const Cast = () => {
         <CastList>
           {actors.map(({ id, name, profile_path, character }) => {
             return (
-              <li key={id}>
+              <CastContainer key={id}>
                 {profile_path ? (
                   <Image
                     src={`https://image.tmdb.org/t/p/w500${profile_path}`}
@@ -59,7 +59,7 @@ const Cast = () => {
                 )}
                 <p>{name}</p>
                 <p>Character: {character}</p>
-              </li>
+              </CastContainer>
             );
           })}
         </CastList>
