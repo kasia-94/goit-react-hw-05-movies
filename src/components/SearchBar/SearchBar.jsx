@@ -8,7 +8,7 @@ import {
   SearchFormLabel,
   SearchFormInput,
 } from './SearchBar.styled';
-import { toast } from 'react-toastify';
+import Notiflix from 'notiflix';
 import 'react-toastify/dist/ReactToastify.css';
 
 export function SearchBar({ onSubmit }) {
@@ -17,9 +17,12 @@ export function SearchBar({ onSubmit }) {
   const handleSubmit = e => {
     e.preventDefault();
     if (inputName.trim() === '') {
-      return toast.warning('Please, I need to know what you are looking for!', {
-        theme: 'colored',
-      });
+      return Notiflix.Notify.info(
+        'Please, I need to know what you are looking for!',
+        {
+          theme: 'colored',
+        }
+      );
     }
     onSubmit(inputName);
     setInputName('');

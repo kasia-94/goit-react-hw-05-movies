@@ -3,14 +3,23 @@ import { NavLink, Link } from 'react-router-dom';
 
 export const MainContainer = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 
 export const Image = styled.img`
-  width: 150px;
+  width: 100%;
   height: 100%;
-  margin-left: 15px;
-  margin-right: 15px;
+
+  @media screen and (min-width: 768px) {
+    width: 350px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 450px;
+  }
 `;
+
+export const DetailsBox = styled.div``;
 
 export const Addition = styled.ul`
   list-style: none;
@@ -37,6 +46,7 @@ export const StyledLink = styled(Link)`
   align-items: center;
   gap: 4px;
   padding: 8px 0;
+  margin: 10px 0;
   color: black;
   text-decoration: none;
   font-weight: 500;

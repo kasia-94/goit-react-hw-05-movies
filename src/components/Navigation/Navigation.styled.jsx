@@ -30,3 +30,8 @@ export const MenuLink = styled(NavLink)`
     color: #060c30;
   }
 `;
+
+export const Logo = styled.img`
+  width: 100px;
+  margin-right: 15px;
+`;

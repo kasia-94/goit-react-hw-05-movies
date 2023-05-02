@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loader } from 'components/Loader/Loader';
 import { fetchMovieCredits } from 'fetchMovies';
-import { toast } from 'react-toastify';
+import Notiflix from 'notiflix';
 import 'react-toastify/dist/ReactToastify.css';
-import { CastList, Image, CastContainer } from './Cast.styled';
+import { CastList, Image, CastContainer, CastTitle } from './Cast.styled';
+import { Container } from 'components/App.styled';
 
 const Cast = () => {
   const [actors, setActors] = useState(null);
@@ -33,12 +34,15 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <>
-      <h2>Cast</h2>
+    <Container>
+      <CastTitle>Cast</CastTitle>
       {error &&
-        toast.error(`Sorry, but something happened wrong: ${error.message}`, {
-          theme: 'colored',
-        })}
+        Notiflix.Notify.failure(
+          `Sorry, but something happened wrong: ${error.message}`,
+          {
+            theme: 'colored',
+          }
+        )}
       {!actors && 'No actors'}
 
       {actors && (
@@ -65,7 +69,7 @@ const Cast = () => {
         </CastList>
       )}
       {isLoading && <Loader />}
-    </>
+    </Container>
   );
 };
 

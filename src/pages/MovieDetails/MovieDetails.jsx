@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from 'fetchMovies';
-import { toast } from 'react-toastify';
+import Notiflix from 'notiflix';
 import 'react-toastify/dist/ReactToastify.css';
 import { Loader } from '../../components/Loader/Loader';
 import {
@@ -10,8 +10,10 @@ import {
   Addition,
   AdditionLink,
   StyledLink,
+  DetailsBox,
 } from './MovieDetails.styled';
 import { HiArrowLeft } from 'react-icons/hi';
+import { Container } from 'components/App.styled';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -60,11 +62,14 @@ const MovieDetails = () => {
         <span>Go back</span>
       </StyledLink>
       {error &&
-        toast.error(`Sorry, but something happened wrong: ${error.message}`, {
-          theme: 'colored',
-        })}
+        Notiflix.Notify.failure(
+          `Sorry, but something happened wrong: ${error.message}`,
+          {
+            theme: 'colored',
+          }
+        )}
       {movie && (
-        <div>
+        <Container>
           <MainContainer>
             {movie.poster_path ? (
               <Image
@@ -77,7 +82,7 @@ const MovieDetails = () => {
                 alt={movie.title}
               />
             )}
-            <div>
+            <DetailsBox>
               <h1>
                 {movie.title} ({getRelizeYear(movie.release_date)})
               </h1>
@@ -85,8 +90,8 @@ const MovieDetails = () => {
               <h2>Overview</h2>
               <p>{movie.overview}</p>
               <h2>Genres</h2>
-              <p>{movie.genres.map(genre => genre.name).join(' ')}</p>
-            </div>
+              <p>{movie.genres.map(genre => genre.name).join(' - ')}</p>
+            </DetailsBox>
           </MainContainer>
           <div>
             <h2>Additional information</h2>
@@ -103,7 +108,7 @@ const MovieDetails = () => {
               </li>
             </Addition>
           </div>
-        </div>
+        </Container>
       )}
       {isLoading && <Loader />}
       <Outlet />

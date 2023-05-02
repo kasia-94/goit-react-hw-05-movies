@@ -5,8 +5,9 @@ const KEY = '332ebb0c59493b862a9beffecc6f1777';
 
 export const fetchTrending = async () => {
   const response = await axios.get(
-    `${BASE_URL}/trending/movie/day?api_key=${KEY}`
+    `${BASE_URL}/trending/movie/week?api_key=${KEY}`
   );
+  console.log(response.data.results);
   return response.data;
 };
 
@@ -21,6 +22,7 @@ export const fetchMovieDetails = async movieId => {
   const response = await axios.get(
     `${BASE_URL}/movie/${movieId}?api_key=${KEY}`
   );
+  console.log(response.data);
   return response.data;
 };
 

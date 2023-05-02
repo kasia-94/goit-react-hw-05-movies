@@ -4,8 +4,9 @@ import { SearchBar } from 'components/SearchBar/SearchBar';
 import { MovieGallery } from 'components/MovieGallery/MovieGallery';
 import { Loader } from 'components/Loader/Loader';
 import { fetchSearchMovie } from 'fetchMovies';
-import { toast } from 'react-toastify';
+import Notiflix from 'notiflix';
 import 'react-toastify/dist/ReactToastify.css';
+import { Container } from 'components/App.styled';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,13 +39,19 @@ const Movies = () => {
 
   return (
     <>
-      {error &&
-        toast.error(`Sorry, but something happened wrong: ${error.message}`, {
-          theme: 'colored',
-        })}
       <SearchBar onSubmit={onSubmit} />
-      <MovieGallery movies={movies} />
-      {isLoading && <Loader />}
+      <Container>
+        {error &&
+          Notiflix.Notify.failure(
+            `Sorry, but something happened wrong: ${error.message}`,
+            {
+              theme: 'colored',
+            }
+          )}
+
+        <MovieGallery movies={movies} />
+        {isLoading && <Loader />}
+      </Container>
     </>
   );
 };

@@ -3,9 +3,10 @@ import { useLocation } from 'react-router-dom';
 import { fetchTrending } from 'fetchMovies';
 import { MovieGallery } from '../../components/MovieGallery/MovieGallery';
 import { Loader } from 'components/Loader/Loader';
-import { toast } from 'react-toastify';
+import Notiflix from 'notiflix';
 import 'react-toastify/dist/ReactToastify.css';
 import { MainTitle } from './Home.styled';
+import { Container } from 'components/App.styled';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -34,12 +35,15 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <Container>
       {error &&
-        toast.error(`Sorry, but something happened wrong: ${error.message}`, {
-          theme: 'colored',
-        })}
-      <MainTitle>Trending today</MainTitle>
+        Notiflix.Notify.failure(
+          `Sorry, but something happened wrong: ${error.message}`,
+          {
+            theme: 'colored',
+          }
+        )}
+      <MainTitle>Top 20</MainTitle>
       {
         <MovieGallery
           movies={movies}
@@ -48,7 +52,7 @@ const Home = () => {
         />
       }
       {isLoading && <Loader />}
-    </>
+    </Container>
   );
 };
 

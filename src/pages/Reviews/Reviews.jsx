@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loader } from '../../components/Loader/Loader';
 import { fetchMovieReviews } from 'fetchMovies';
-import { toast } from 'react-toastify';
+import Notiflix from 'notiflix';
 import 'react-toastify/dist/ReactToastify.css';
-import { Addition, AuthorName } from './Reviews.styled';
+import { Addition, AuthorName, ReviewTitle } from './Reviews.styled';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState(null);
@@ -34,12 +34,15 @@ const Reviews = () => {
 
   return (
     <>
-      <h2>Reviews</h2>
+      <ReviewTitle>Reviews</ReviewTitle>
       {isLoading && <Loader />}
       {error &&
-        toast.error(`Sorry, but something happened wrong: ${error.message}`, {
-          theme: 'colored',
-        })}
+        Notiflix.Notify.failure(
+          `Sorry, but something happened wrong: ${error.message}`,
+          {
+            theme: 'colored',
+          }
+        )}
 
       {reviews && (
         <Addition>
